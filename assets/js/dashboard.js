@@ -2,6 +2,16 @@ $(document).ready(function(){
   var generateChart = {
     gender: function(data){
 
+    var male = 0;
+    var female = 0;
+
+    for (var i = 0; i < data.length; i++){
+      if(data[i].person.gender === 'M'){
+        var male += 1
+      } else {
+        var female += 1
+      }        
+     }
       var chartData = [
         {
           value: 0 /* How do we get this value? */,
@@ -16,6 +26,9 @@ $(document).ready(function(){
           label: "Female"
         }
       ];
+
+      var GenderPieChart = new Chart(ctx[0]).Pie(chartData,options);
+      
 
     },
     orderTotal: function(data){
@@ -104,6 +117,9 @@ $(document).ready(function(){
     }
   };
 
-  // Delete this comment: Perhaps this is where we should make our GET request?
-
+$.get('https://www.batchacademy.com/api/wdfne/dummy/intellidash', function(data){
+  generateChart.gender(data);
+  generateChart.orderTotal(data);
+  generateChart.orderCategory(data);
+  generateChart.orderTimeline(data);
 });
